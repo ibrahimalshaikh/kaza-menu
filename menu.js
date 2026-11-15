@@ -47,8 +47,8 @@ window.MENU = {
       id: "strips",
       name: { ar: "ستريبس", en: "Strips" },
       items: [
-        { name: { ar: "ستربس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickled cucumber" }, price: 20, image: "assets/items/strips-wrap.webp" },
-        { name: { ar: "وجبة ستربس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast strips with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp" },
+        { name: { ar: "ستريبس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickled cucumber" }, price: 20, image: "assets/items/strips-wrap.webp" },
+        { name: { ar: "وجبة ستريبس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast strips with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp" },
         { name: { ar: "تشيزي بوب فرايز", en: "Cheesy Pop Fries" }, desc: { ar: "قطع دجاج مقرمش مع بطاطا مقلية وصوص جبنة وقطع هالبينو", en: "Crispy chicken pieces with fries, cheese sauce and jalapeño" }, price: 25, image: "assets/items/cheesy-pop-fries.webp" },
       ],
     },
