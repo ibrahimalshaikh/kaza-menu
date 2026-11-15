@@ -9,14 +9,18 @@ window.MENU = {
   currency: "₪",
   categories: [
     {
-      id: "sandwiches",
-      name: { ar: "الساندويشات", en: "Sandwiches" },
+      id: "breakfast-sandwiches",
+      name: { ar: "ساندويشات الفطور", en: "Breakfast Sandwiches" },
       items: [
         { name: { ar: "نيو فلسكوس", en: "New Felescos" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/new-felescos.webp", featured: true },
         { name: { ar: "ايميك تشيز", en: "Emek Cheese" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/emek-cheese.webp", featured: true },
         { name: { ar: "كازا تشيز", en: "Kaza Cheese" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/kaza-cheese.webp", featured: true },
         { name: { ar: "فريدم", en: "Freedom" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/freedom.webp", featured: true },
         { name: { ar: "سان تشيز", en: "Sun Cheese" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/sun-cheese.webp", featured: true },
+        { name: { ar: "مارينا تشيكن", en: "Marina Chicken" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/marina-chicken.webp" },
+        { name: { ar: "ذا ايج", en: "The Egg" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/the-egg.webp" },
+        { name: { ar: "كومبو فيتا", en: "Combo Feta" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/combo-feta.webp" },
+        { name: { ar: "بلدي", en: "Baladi" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/baladi.webp" },
       ],
     },
   ],

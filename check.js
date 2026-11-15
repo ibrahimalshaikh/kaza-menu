@@ -27,7 +27,7 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   // الأقسام
   await p.locator('.burger').click(); await p.waitForTimeout(300); await shot('ar_cats');
   await p.locator('.cat-opt').nth(0).click(); await p.waitForTimeout(1200);
-  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'sandwiches');
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'breakfast-sandwiches');
   await shot('ar_cat3');
   // اللغة
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
