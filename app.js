@@ -1,7 +1,7 @@
 (() => {
   const M = window.MENU;
   const T = {
-    ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام المنيو", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي" },
+    ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام القائمة", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي" },
     en: { contact: "Contact", popular: "Popular", cats: "Menu Categories", langs: "Available Languages", close: "Close", lang: "Language", fav: "Favorite", theme: "Dark mode" },
   };
   const LANGS = [["ar", "العربية", "🇵🇸"], ["en", "English", "🇬🇧"]];
