@@ -52,7 +52,7 @@
       <h1>${tx(M.name)}</h1>
       <p class="sub">${t.contact}: <span class="ltr">${esc(M.phone)}</span></p>
       ${popular.length ? `<div class="popular"><div class="popular-title">${t.popular}</div><div class="scroller"><div class="pop-row">
-        ${popular.map(it => `<div class="pop" data-open="item/${it.id}">${img(it)}<div class="pop-name">${tx(it.name)}</div><div class="pop-price">${price(it.price)}</div></div>`).join("")}
+        ${popular.map(it => `<div class="pop" data-open="item-${it.id}">${img(it)}<div class="pop-name">${tx(it.name)}</div><div class="pop-price">${price(it.price)}</div></div>`).join("")}
       </div></div></div>` : ""}
       <div class="nav"><div class="nav-in">
         <button class="burger" data-open="cats" aria-label="${t.cats}">${svg(I.burger)}</button>
@@ -62,7 +62,7 @@
       </div></div>
       ${M.categories.map(c => `<section class="cat" id="${esc(c.id)}">
         <div class="cat-title">${tx(c.name)}</div>
-        ${c.items.map((it, i) => { const id = `${c.id}-${i}`; return `<div class="item" data-open="item/${id}">
+        ${c.items.map((it, i) => { const id = `${c.id}-${i}`; return `<div class="item" data-open="item-${id}">
           <div class="item-body"><div class="item-name clamp2">${tx(it.name)}</div><div class="item-price">${price(it.price)}</div>${tx(it.desc) ? `<p class="item-desc clamp2">${tx(it.desc)}</p>` : ""}</div>
           <div class="item-pic">${img(it)}<button class="heart${favs.has(id) ? " on" : ""}" data-fav="${id}" aria-label="${t.fav}">${svg(I.heart)}</button></div>
         </div>`; }).join("")}
@@ -76,7 +76,8 @@
   // ----- النوافذ: اللغة / الأقسام / تفاصيل الصنف (مربوطة بالـ hash عشان زر الرجوع) -----
   function renderOverlay() {
     const t = T[lang];
-    const [kind, id] = decodeURIComponent(location.hash.slice(1)).split("/");
+    const h = decodeURIComponent(location.hash.slice(1)); // lang | cats | item-<id>
+    const [kind, id] = h.startsWith("item-") ? ["item", h.slice(5)] : [h];
     let html = "";
     if (kind === "lang") {
       html = `<div class="sheet lang"><div class="sheet-title">${t.langs}</div>
