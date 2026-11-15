@@ -21,7 +21,7 @@
   const overlay = document.getElementById("overlay");
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const tx = o => esc(o?.[lang] || o?.ar || o?.en || "");
-  const price = p => `<span class="ltr">${esc(M.currency)} ${Number.isInteger(+p) ? +p : (+p).toFixed(2)}</span>`;
+  const price = p => p == null || p === "" ? "" : `<span class="ltr">${esc(M.currency)} ${Number.isInteger(+p) ? +p : (+p).toFixed(2)}</span>`;
   const svg = (body, size = 24, sw = 2) => `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
   const I = {
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>',

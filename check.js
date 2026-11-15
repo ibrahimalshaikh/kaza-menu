@@ -26,8 +26,8 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await p.locator('.heart').first().click(); assert(await p.locator('#overlay').isHidden()); assert(await p.locator('.heart.on').count() === 1);
   // الأقسام
   await p.locator('.burger').click(); await p.waitForTimeout(300); await shot('ar_cats');
-  await p.locator('.cat-opt').nth(2).click(); await p.waitForTimeout(1200);
-  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'sample-3');
+  await p.locator('.cat-opt').nth(0).click(); await p.waitForTimeout(1200);
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'sandwiches');
   await shot('ar_cat3');
   // اللغة
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
