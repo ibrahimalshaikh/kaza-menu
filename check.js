@@ -18,6 +18,9 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   assert((await p.textContent('.sub')).includes('0593608095'));
   await shot('ar1');
   await p.evaluate(() => scrollTo(0, 620)); await p.waitForTimeout(400); await shot('ar2');
+  const ids = await p.evaluate(() => MENU.categories.map(c => c.id));
+  if (!ids.length) assert(await p.locator('.soon').isVisible()); // منيو فاضي
+  if (ids.length) {
   // تفاصيل الصنف + زر الرجوع
   await p.locator('.item').nth(1).click(); await p.waitForTimeout(300); await shot('ar_item');
   assert(await p.locator('.detail').isVisible());
@@ -27,20 +30,21 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   // الأقسام
   await p.locator('.burger').click(); await p.waitForTimeout(300); await shot('ar_cats');
   await p.locator('.cat-opt').nth(0).click(); await p.waitForTimeout(1200);
-  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'breakfast-sandwiches');
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), ids[0]);
   await shot('ar_cat3');
   // آخر قسم بيصير أخضر بالضغط وبالتمرير لآخر الصفحة
   await p.locator('.tab').last().click(); await p.waitForTimeout(1200);
-  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'strips');
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), ids.at(-1));
   await p.mouse.wheel(0, -300); await p.waitForTimeout(400); await p.mouse.wheel(0, 5000); await p.waitForTimeout(800);
-  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'strips');
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), ids.at(-1));
+  }
   // اللغة
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
   await p.locator('.topbar button').click(); await p.waitForTimeout(300); await shot('lang');
   await p.locator('[data-lang=en]').click(); await p.waitForTimeout(400);
   assert.equal(await p.getAttribute('html', 'dir'), 'ltr'); assert(await p.locator('#overlay').isHidden());
   await shot('en1'); await p.evaluate(() => scrollTo(0, 620)); await p.waitForTimeout(400); await shot('en2');
-  await p.locator('.item').nth(0).click(); await p.waitForTimeout(300); await shot('en_item'); await p.locator('.d-close').click(); await p.waitForTimeout(300);
+  if (ids.length) {await p.locator('.item').nth(0).click(); await p.waitForTimeout(300); await shot('en_item'); await p.locator('.d-close').click(); await p.waitForTimeout(300); }
   await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForTimeout(400); await shot('en_bottom');
   await p.locator('.toggle').click(); await p.waitForTimeout(400); await shot('dark_bottom');
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300); await shot('dark1');

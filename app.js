@@ -1,8 +1,8 @@
 (() => {
   const M = window.MENU;
   const T = {
-    ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام القائمة", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي" },
-    en: { contact: "Contact", popular: "Popular", cats: "Menu Categories", langs: "Available Languages", close: "Close", lang: "Language", fav: "Favorite", theme: "Dark mode" },
+    ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام القائمة", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي", soon: "المنيو قيد التحديث، راجعنا قريباً" },
+    en: { contact: "Contact", popular: "Popular", cats: "Menu Categories", langs: "Available Languages", close: "Close", lang: "Language", fav: "Favorite", theme: "Dark mode", soon: "Menu is being updated, check back soon" },
   };
   const LANGS = [["ar", "العربية", "🇵🇸"], ["en", "English", "🇬🇧"]];
 
@@ -54,7 +54,8 @@
       ${popular.length ? `<div class="popular"><div class="popular-title">${t.popular}</div><div class="scroller"><div class="pop-row">
         ${popular.map(it => `<div class="pop" data-open="item-${it.id}">${img(it)}<div class="pop-name">${tx(it.name)}</div><div class="pop-price">${price(it.price)}</div></div>`).join("")}
       </div></div></div>` : ""}
-      <div class="nav"><div class="nav-in">
+      ${M.categories.length ? "" : `<p class="soon">${t.soon}</p>`}
+      <div class="nav"${M.categories.length ? "" : " hidden"}><div class="nav-in">
         <button class="burger" data-open="cats" aria-label="${t.cats}">${svg(I.burger)}</button>
         <div class="scroller" id="tabs-scroll"><div class="tabs">
           ${M.categories.map((c, i) => `<button class="tab${i ? "" : " on"}" data-go="${esc(c.id)}">${tx(c.name)}</button>`).join("")}
@@ -114,6 +115,7 @@
   }
   let picked = null; // القسم الي ضغط عليه الزبون، بيضل مختار لحد ما يمرّر بإيده
   function spy() {
+    if (!M.categories.length) return;
     if (picked) return setTab(picked);
     const line = navH() + 12, secs = [...document.querySelectorAll(".cat")];
     let cur = secs[0]?.id;

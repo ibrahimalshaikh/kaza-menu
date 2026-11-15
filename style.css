@@ -44,6 +44,7 @@ img{display:block;max-width:100%}
 h1{font-weight:var(--semi);font-size:24px;line-height:32px;margin-top:64px;padding:4px 16px 0;text-align:center}
 .sub{font-size:14px;line-height:20px;color:var(--muted);text-align:center;margin-top:8px;padding:0 40px}
 
+.soon{text-align:center;color:var(--muted);padding:40px 16px}
 /* الأكثر طلباً */
 .popular{background:var(--card);margin-top:24px}
 .popular-title{font-weight:var(--semi);font-size:18px;line-height:28px;padding:16px 16px 0}
