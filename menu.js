@@ -23,5 +23,15 @@ window.MENU = {
         { name: { ar: "بلدي", en: "Baladi" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/baladi.webp" },
       ],
     },
+    {
+      id: "western-sandwiches",
+      name: { ar: "ساندويشات غربي", en: "Western Sandwiches" },
+      items: [
+        { name: { ar: "دجاج بالجبنة والذرة", en: "Chicken with Cheese & Corn" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/chicken-cheese-corn.webp" },
+        { name: { ar: "تشكين بيتزا", en: "Chicken Pizza" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/chicken-pizza.webp" },
+        { name: { ar: "الا كينج", en: "À La King" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/a-la-king.webp" },
+        { name: { ar: "ستيك ستاك", en: "Steak Stack" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/steak-stack.webp" },
+      ],
+    },
   ],
 };
