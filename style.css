@@ -63,6 +63,7 @@ h1{font-weight:var(--semi);font-size:24px;line-height:32px;margin-top:64px;paddi
 .nav .scroller{flex:1;scroll-behavior:smooth}
 .tabs{display:flex;gap:8px;padding:4px 0;padding-inline-end:16px;width:max-content}
 .tab{flex:none;padding:8px 16px;font-weight:var(--semi);white-space:nowrap;border-radius:12px;background:var(--card);color:var(--text);transition:all .15s}
+.tab:focus:not(:focus-visible),.cat-opt:focus:not(:focus-visible){outline:none}
 .tab.on{background:var(--theme);color:#fff;box-shadow:var(--shadow-md)}
 
 /* الأقسام والأصناف */

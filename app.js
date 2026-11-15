@@ -112,13 +112,19 @@
       b.classList.toggle("on", on);
     });
   }
+  let picked = null; // القسم الي ضغط عليه الزبون، بيضل مختار لحد ما يمرّر بإيده
   function spy() {
-    const line = navH() + 12;
-    let cur = M.categories[0]?.id;
-    for (const s of document.querySelectorAll(".cat")) if (s.getBoundingClientRect().top <= line) cur = s.id;
+    if (picked) return setTab(picked);
+    const line = navH() + 12, secs = [...document.querySelectorAll(".cat")];
+    let cur = secs[0]?.id;
+    for (const s of secs) if (s.getBoundingClientRect().top <= line) cur = s.id;
+    // آخر قسم ما بيوصل لفوق لأنه قصير، فلما نوصل آخر الصفحة بنختاره
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = secs.at(-1)?.id;
     if (cur) setTab(cur);
   }
+  ["touchstart", "wheel", "keydown"].forEach(ev => addEventListener(ev, () => { picked = null; }, { passive: true }));
   function go(id) {
+    picked = id; setTab(id);
     const s = document.getElementById(id);
     if (s) window.scrollTo({ top: s.getBoundingClientRect().top + scrollY - navH() + 1, behavior: "smooth" });
   }

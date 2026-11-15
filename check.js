@@ -29,6 +29,11 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await p.locator('.cat-opt').nth(0).click(); await p.waitForTimeout(1200);
   assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'breakfast-sandwiches');
   await shot('ar_cat3');
+  // آخر قسم بيصير أخضر بالضغط وبالتمرير لآخر الصفحة
+  await p.locator('.tab').last().click(); await p.waitForTimeout(1200);
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'strips');
+  await p.mouse.wheel(0, -300); await p.waitForTimeout(400); await p.mouse.wheel(0, 5000); await p.waitForTimeout(800);
+  assert.equal(await p.locator('.tab.on').getAttribute('data-go'), 'strips');
   // اللغة
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
   await p.locator('.topbar button').click(); await p.waitForTimeout(300); await shot('lang');
