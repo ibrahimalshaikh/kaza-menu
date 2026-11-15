@@ -1,0 +1,131 @@
+@font-face{font-family:Poppins;font-weight:400;font-display:swap;src:url(assets/fonts/poppins-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:600;font-display:swap;src:url(assets/fonts/poppins-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:700;font-display:swap;src:url(assets/fonts/poppins-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Cairo;font-weight:400;font-display:swap;src:url(assets/fonts/cairo-arabic-400-normal.woff2) format("woff2")}
+@font-face{font-family:Cairo;font-weight:600;font-display:swap;src:url(assets/fonts/cairo-arabic-600-normal.woff2) format("woff2")}
+@font-face{font-family:Cairo;font-weight:700;font-display:swap;src:url(assets/fonts/cairo-arabic-700-normal.woff2) format("woff2")}
+
+:root{
+  /* لون الهوية: نفس خضار الشعار. غيّره هون بس */
+  --theme:#425901; --theme-soft:rgba(66,89,1,.07);
+  --page:#f1f5f9; --card:#fff; --text:#0f172a; --text2:#1e293b; --muted:#64748b; --muted2:#475569;
+  --faint:#94a3b8; --line:#e2e8f0; --line2:#f1f5f9; --icon:#334155; --sheet:#fff; --detail:#f8fafc;
+  --hover:#f1f5f9; --heart-bg:rgba(255,255,255,.8); --semi:600;
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+}
+:root[data-theme=dark]{
+  --theme:#7a9a1c; --theme-soft:rgba(122,154,28,.12);
+  --page:#1e293b; --card:#0f172a; --text:#fff; --text2:#fff; --muted:#94a3b8; --muted2:#cbd5e1;
+  --faint:#94a3b8; --line:#334155; --line2:#334155; --icon:#cbd5e1; --sheet:#0f172a; --detail:#1e293b;
+  --hover:#334155; --heart-bg:rgba(15,23,42,.8);
+}
+/* الخط العربي Cairo أثقل شوي زي الموقع الأصلي */
+:root[dir=rtl]{--semi:700}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:Poppins,Cairo,system-ui,sans-serif}
+:root[dir=rtl] *{font-family:Cairo,Poppins,system-ui,sans-serif}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{background:var(--page);color:var(--text);font-size:16px;line-height:24px}
+body.locked{overflow:hidden}
+button{background:none;border:0;color:inherit;font-size:inherit;line-height:inherit;cursor:pointer;text-align:start}
+img{display:block;max-width:100%}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+#app{min-height:100vh;padding-bottom:40px}
+.wrap{max-width:560px;margin:0 auto}
+
+/* الغلاف والشعار */
+.cover{height:285px;background:#cbd5e1 center/cover no-repeat;border-radius:0 0 10px 10px;position:relative}
+.topbar{display:flex;gap:8px;padding:16px}
+.topbar button{background:rgba(30,41,59,.6);padding:8px;border-radius:12px;color:#fff;display:flex}
+.logo{position:absolute;bottom:-56px;left:0;right:0;display:flex;justify-content:center}
+.logo img{width:128px;height:128px;border-radius:50%;border:4px solid #fff;box-shadow:var(--shadow-md);object-fit:cover;background:#fff}
+h1{font-weight:var(--semi);font-size:24px;line-height:32px;margin-top:64px;padding:4px 16px 0;text-align:center}
+.sub{font-size:14px;line-height:20px;color:var(--muted);text-align:center;margin-top:8px;padding:0 40px}
+
+/* الأكثر طلباً */
+.popular{background:var(--card);margin-top:24px}
+.popular-title{font-weight:var(--semi);font-size:18px;line-height:28px;padding:16px 16px 0}
+.scroller{overflow-x:auto;scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.popular .scroller{padding:12px 0}
+.pop-row{display:flex;gap:16px;padding:0 16px;width:max-content}
+.pop{flex:none;width:128px;cursor:pointer}
+.pop img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.pop-name{margin-top:8px;font-weight:var(--semi);font-size:14px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pop-price{font-size:14px;line-height:20px;color:var(--muted2)}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:0;z-index:10;margin-top:24px;background:var(--card);padding:12px 0 8px;border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center}
+.burger{flex:none;padding:8px 12px;color:var(--icon);display:flex}
+.nav .scroller{flex:1;scroll-behavior:smooth}
+.tabs{display:flex;gap:8px;padding:4px 0;padding-inline-end:16px;width:max-content}
+.tab{flex:none;padding:8px 16px;font-weight:var(--semi);white-space:nowrap;border-radius:12px;background:var(--card);color:var(--text);transition:all .15s}
+.tab.on{background:var(--theme);color:#fff;box-shadow:var(--shadow-md)}
+
+/* الأقسام والأصناف */
+.cat{scroll-margin-top:62px;background:var(--card)}
+.cat-title{font-weight:var(--semi);font-size:20px;line-height:28px;padding:24px 16px 16px;background:var(--theme-soft);border-bottom:4px solid var(--theme)}
+.item{padding:16px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line2);cursor:pointer}
+.item:last-of-type{border-bottom:0}
+.item-body{flex:1;min-width:0}
+.item-name{font-weight:var(--semi);font-size:18px;line-height:28px;color:var(--text)}
+.item-price{margin-top:4px;color:var(--text2)}
+.item-desc{color:var(--muted);margin-top:4px;font-size:14px;line-height:20px}
+.clamp2{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.item-pic{position:relative;width:112px;flex:none}
+.item-pic img{width:112px;height:112px;border-radius:12px;object-fit:cover}
+.heart{position:absolute;right:8px;top:8px;border-radius:50%;padding:6px;background:var(--heart-bg);color:var(--faint);display:flex}
+.heart svg{width:16px;height:16px}
+.heart.on,.d-heart.on{color:#e11d48}
+.heart.on svg,.d-heart.on svg{fill:#e11d48}
+/* الحافة المسننة آخر كل قسم */
+.zig{background:var(--page)}
+.zig::before{content:"";display:block;aspect-ratio:545/13.3;background:var(--card);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10.9 13.3' preserveAspectRatio='none'%3E%3Cpath d='M0 0H10.9V6.6L7 10.5a2.2 2.2 0 0 1-3.1 0L0 6.6Z'/%3E%3C/svg%3E") 0 0/2% 100% repeat-x;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10.9 13.3' preserveAspectRatio='none'%3E%3Cpath d='M0 0H10.9V6.6L7 10.5a2.2 2.2 0 0 1-3.1 0L0 6.6Z'/%3E%3C/svg%3E") 0 0/2% 100% repeat-x}
+
+/* زر الوضع الليلي */
+.theme-row{display:flex;justify-content:center;margin-top:24px}
+.toggle{position:relative;width:64px;height:32px;border-radius:999px;background:#e2e8f0;box-shadow:inset 1px 1px 4px rgba(0,0,0,.08),inset -1px -1px 4px rgba(255,255,255,.9);transition:all .3s}
+.toggle>svg{position:absolute;top:7px;opacity:.4}
+.toggle>svg:first-child{left:8px}.toggle>svg:nth-child(2){right:8px}
+.knob{position:absolute;width:26px;height:26px;top:3px;left:calc(100% - 29px);border-radius:50%;background:#f1f5f9;box-shadow:2px 2px 4px rgba(0,0,0,.12),-2px -2px 4px #fff;display:flex;align-items:center;justify-content:center;transition:all .3s}
+[data-theme=dark] .toggle{background:#334155;box-shadow:inset 1px 1px 4px rgba(0,0,0,.4)}
+[data-theme=dark] .knob{left:3px;background:#1e293b;box-shadow:2px 2px 4px rgba(0,0,0,.4)}
+
+/* النوافذ السفلية */
+#overlay{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.5)}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:var(--sheet);border-radius:16px 16px 0 0;color:var(--text)}
+.sheet.lang{padding:24px 24px 80px}
+.sheet-title{text-align:center;font-weight:var(--semi);font-size:18px;line-height:28px;margin-bottom:20px}
+.lang-opt{display:flex;gap:12px;align-items:center;width:100%;padding:12px;margin-bottom:4px;border-radius:6px}
+.lang-opt.on{background:var(--hover)}
+.lang-opt .flag{font-size:24px;line-height:32px}
+.lang-opt .check{margin-inline-start:auto;color:var(--theme)}
+.sheet-close{position:absolute;bottom:16px;right:16px;background:var(--sheet);padding:8px;border-radius:50%;border:1px solid var(--line);display:flex}
+.sheet.cats{max-height:70vh;overflow-y:auto;padding-bottom:40px}
+.cats-head{position:sticky;top:0;background:var(--sheet);display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--line);z-index:1}
+.cats-head button{padding:6px;border-radius:50%;border:1px solid var(--line);display:flex}
+.cats-head button svg{width:20px;height:20px}
+.cats-head span{font-weight:var(--semi);font-size:18px;line-height:28px}
+.cat-opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 20px;border-top:1px solid var(--line2)}
+.cat-opt:first-of-type{border-top:0}
+.cat-opt b{font-weight:var(--semi)}
+.cat-opt span{color:var(--faint);font-size:14px}
+
+/* صفحة تفاصيل الصنف */
+.detail{position:absolute;inset:0;max-width:560px;margin:0 auto;background:var(--detail);overflow-y:auto;color:var(--text)}
+.detail-top{position:relative}
+.detail-top img{width:100%;aspect-ratio:1;object-fit:cover}
+.d-close{position:absolute;z-index:1;top:16px;right:16px;background:var(--sheet);padding:8px;border-radius:50%;box-shadow:var(--shadow-lg);display:flex}
+.d-close svg{width:28px;height:28px}
+.d-body{padding:20px}
+.d-head{display:flex;gap:16px;align-items:flex-start}
+.d-name{flex:1;font-weight:var(--semi);font-size:20px;line-height:28px;overflow-wrap:anywhere}
+.d-heart{color:#e11d48;display:flex}
+.d-price{margin-top:4px;font-size:18px;line-height:28px;font-weight:700}
+.d-desc{margin-top:12px;color:var(--muted);white-space:pre-wrap}
+[data-theme=dark] .item-desc,[data-theme=dark] .d-desc{color:#e2e8f0}
