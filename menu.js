@@ -39,6 +39,17 @@ window.MENU = {
         { name: { ar: "تشكن بيتزا", en: "Chicken Pizza" }, desc: { ar: "قطع صدر الدجاج مع صوص التشكن بيتزا والجبنة", en: "Chicken breast pieces with chicken pizza sauce and cheese" }, price: 25, image: "assets/items/chicken-pizza.webp" },
         { name: { ar: "ألا كينج", en: "À La King" }, desc: { ar: "قطع صدر الدجاج مع جبنة المازوريلا والشبت", en: "Chicken breast pieces with mozzarella cheese and dill" }, price: 25, image: "assets/items/a-la-king.webp" },
         { name: { ar: "ستيك ستاك", en: "Steak Stack" }, desc: { ar: "قطع صدر الدجاج مع شرائح البندورة والجبنة وقطع الزيتون", en: "Chicken breast pieces with tomato slices, cheese and olives" }, price: 25, image: "assets/items/steak-stack.webp" },
+        { name: { ar: "تشكن بيكانتي", en: "Chicken Picante" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الجبنة وصوص البيكانتي", en: "Crispy chicken breast pieces with cheese and Picante sauce" }, price: 25, image: "assets/items/chicken-picante.webp" },
+        { name: { ar: "مشروم ميلت", en: "Mushroom Melt" }, desc: { ar: "قطع صدر الدجاج مع الكريمة والمشروم وصوص خاص وجبنة", en: "Chicken breast pieces with cream, mushroom, special sauce and cheese" }, price: 25, image: "assets/items/mushroom-melt.webp" },
+      ],
+    },
+    {
+      id: "strips",
+      name: { ar: "ستريبس", en: "Strips" },
+      items: [
+        { name: { ar: "ستربس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickled cucumber" }, price: 20, image: "assets/items/strips-wrap.webp" },
+        { name: { ar: "وجبة ستربس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast strips with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp" },
+        { name: { ar: "تشيزي بوب فرايز", en: "Cheesy Pop Fries" }, desc: { ar: "قطع دجاج مقرمش مع بطاطا مقلية وصوص جبنة وقطع هالبينو", en: "Crispy chicken pieces with fries, cheese sauce and jalapeño" }, price: 25, image: "assets/items/cheesy-pop-fries.webp" },
       ],
     },
   ],
