@@ -33,5 +33,13 @@ window.MENU = {
         { name: { ar: "ستيك ستاك", en: "Steak Stack" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/steak-stack.webp" },
       ],
     },
+    {
+      id: "strips",
+      name: { ar: "ستريبس", en: "Strips" },
+      items: [
+        { name: { ar: "ستربس راب", en: "Strips Wrap" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/strips-wrap.webp" },
+        { name: { ar: "وجبة ستربس راب", en: "Strips Wrap Meal" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/strips-wrap-meal.webp" },
+      ],
+    },
   ],
 };
