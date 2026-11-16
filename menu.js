@@ -50,6 +50,17 @@ window.MENU = {
         { name: { ar: "ستريبس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickles" }, price: 20, image: "assets/items/strips-wrap.webp" },
         { name: { ar: "وجبة ستريبس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast pieces with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp" },
         { name: { ar: "تشيزي بوب فرايز", en: "Cheesy Pop Fries" }, desc: { ar: "قطع دجاج مقرمش مع بطاطا مقلية وصوص جبنة وقطع هالبينو", en: "Crispy chicken pieces with French fries, cheese sauce and jalapeño pieces" }, price: 25, image: "assets/items/cheesy-pop-fries.webp" },
+        { name: { ar: "كريزي برجر", en: "Crazy Burger" }, desc: { ar: "قطع صدر الدجاج المقرمش مع شرائح البندورة والخس والجبنة", en: "Crispy chicken breast pieces with tomato slices, lettuce and cheese" }, price: 25, image: "assets/items/crazy-burger.webp" },
+      ],
+    },
+    {
+      id: "green-salads",
+      name: { ar: "سلطات خضراء", en: "Green Salads" },
+      items: [
+        { name: { ar: "سانتافيه", en: "Santa Fe" }, desc: { ar: "", en: "" }, price: 25, image: "assets/items/santa-fe.webp" },
+        { name: { ar: "رانشوس", en: "Ranchos" }, desc: { ar: "", en: "" }, price: 20, image: "assets/items/ranchos.webp" },
+        { name: { ar: "سلطة يونانية", en: "Greek Salad" }, desc: { ar: "", en: "" }, price: 16, image: "assets/items/greek-salad.webp" },
+        { name: { ar: "هيلثي جرين", en: "Healthy Green" }, desc: { ar: "", en: "" }, price: 23, image: "assets/items/healthy-green.webp" },
       ],
     },
   ],
