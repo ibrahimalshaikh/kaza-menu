@@ -121,7 +121,7 @@ h1{font-weight:var(--semi);font-size:24px;line-height:32px;margin-top:64px;paddi
 /* صفحة تفاصيل الصنف */
 .detail{position:absolute;inset:0;max-width:560px;margin:0 auto;background:var(--detail);overflow-y:auto;color:var(--text)}
 .detail-top{position:relative}
-.detail-top img{width:100%;aspect-ratio:1;object-fit:cover}
+.detail-top img{width:100%;height:auto}
 .d-close{position:absolute;z-index:1;top:16px;right:16px;background:var(--sheet);padding:8px;border-radius:50%;box-shadow:var(--shadow-lg);display:flex}
 .d-close svg{width:28px;height:28px}
 .d-body{padding:20px}
