@@ -17,8 +17,8 @@ window.MENU = {
         { name: { ar: "إيميك تشيز", en: "Emek Cheese" }, desc: { ar: "جبنة إيميك مع شرائح البندورة وصوص خاص", en: "Emek cheese with tomato slices and special sauce" }, price: 14, image: "assets/items/emek-cheese.webp?v=2" },
         { name: { ar: "كازا تشيز", en: "Kaza Cheese" }, desc: { ar: "جبنة كازا مع شرائح الزيتون وقطع الخس وصوص خاص", en: "Kaza cheese with olive slices, lettuce and special sauce" }, price: 12, image: "assets/items/kaza-cheese.webp?v=2" },
         { name: { ar: "ذا إيج", en: "The Egg" }, desc: { ar: "بيض أومليت بالزبدة وجبنة كازا وقطع السلامي", en: "Omelette cooked in butter with Kaza cheese and salami pieces" }, price: 12, image: "assets/items/the-egg.webp?v=2" },
-        { name: { ar: "كومبو فيتا", en: "Combo Feta" }, desc: { ar: "جبنة بيضاء مع الزيت والزعتر وشرائح الفلفل الحلو", en: "White cheese with oil, za'atar and sweet pepper slices" }, price: 10, image: "assets/items/combo-feta.webp" },
-        { name: { ar: "بلدية", en: "Baladiya" }, desc: { ar: "قطع جبنة بيضاء مع شرائح البندورة والخيار وزيت الزيتون", en: "White cheese pieces with tomato and cucumber slices and olive oil" }, price: 10, image: "assets/items/baladiya.webp" },
+        { name: { ar: "كومبو فيتا", en: "Combo Feta" }, desc: { ar: "جبنة بيضاء مع الزيت والزعتر وشرائح الفلفل الحلو", en: "White cheese with oil, za'atar and sweet pepper slices" }, price: 10, image: "assets/items/combo-feta.webp?v=2" },
+        { name: { ar: "بلدية", en: "Baladiya" }, desc: { ar: "قطع جبنة بيضاء مع شرائح البندورة والخيار وزيت الزيتون", en: "White cheese pieces with tomato and cucumber slices and olive oil" }, price: 10, image: "assets/items/baladiya.webp?v=2" },
       ],
     },
     {
