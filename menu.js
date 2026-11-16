@@ -25,10 +25,10 @@ window.MENU = {
       id: "light-lunch",
       name: { ar: "لايت لانش", en: "Light Lunch" },
       items: [
-        { name: { ar: "فريدم", en: "Freedom" }, desc: { ar: "صدر دجاج مشوح بالبصل والفلفل وجبنة إيميك وصوص فريدم", en: "Sautéed chicken breast with onions and peppers, Emek cheese and Freedom sauce" }, price: 19, image: "assets/items/freedom.webp" },
-        { name: { ar: "مكسيكانو", en: "Mexicano" }, desc: { ar: "صدر دجاج مشوح بخلطة مكسيكية وفلفل الهالبينو وجبنة كازا", en: "Sautéed chicken breast with a Mexican spice mix, jalapeño peppers and Kaza cheese" }, price: 19, image: "assets/items/mexicano.webp" },
-        { name: { ar: "سوبر فلكسوس", en: "Super Flexos" }, desc: { ar: "صدر دجاج مشوح بجبنة كازا وقطع السلامي والتيركي وصوص الفلكسوس", en: "Sautéed chicken breast with Kaza cheese, salami and turkey pieces and Flexos sauce" }, price: 19, image: "assets/items/super-flexos.webp" },
-        { name: { ar: "مارينا", en: "Marina" }, desc: { ar: "صدر دجاج بالأعشاب وصوص مارينا وقطع الفلفل الحلو وجبنة كازا", en: "Herbed chicken breast with Marina sauce, sweet pepper pieces and Kaza cheese" }, price: 19, image: "assets/items/marina.webp" },
+        { name: { ar: "فريدم", en: "Freedom" }, desc: { ar: "صدر دجاج مشوح بالبصل والفلفل وجبنة إيميك وصوص فريدم", en: "Sautéed chicken breast with onions and peppers, Emek cheese and Freedom sauce" }, price: 19, image: "assets/items/freedom.webp?v=2" },
+        { name: { ar: "مكسيكانو", en: "Mexicano" }, desc: { ar: "صدر دجاج مشوح بخلطة مكسيكية وفلفل الهالبينو وجبنة كازا", en: "Sautéed chicken breast with a Mexican spice mix, jalapeño peppers and Kaza cheese" }, price: 19, image: "assets/items/mexicano.webp?v=2" },
+        { name: { ar: "سوبر فلكسوس", en: "Super Flexos" }, desc: { ar: "صدر دجاج مشوح بجبنة كازا وقطع السلامي والتيركي وصوص الفلكسوس", en: "Sautéed chicken breast with Kaza cheese, salami and turkey pieces and Flexos sauce" }, price: 19, image: "assets/items/super-flexos.webp?v=2" },
+        { name: { ar: "مارينا", en: "Marina" }, desc: { ar: "صدر دجاج بالأعشاب وصوص مارينا وقطع الفلفل الحلو وجبنة كازا", en: "Herbed chicken breast with Marina sauce, sweet pepper pieces and Kaza cheese" }, price: 19, image: "assets/items/marina.webp?v=2" },
       ],
     },
     {
