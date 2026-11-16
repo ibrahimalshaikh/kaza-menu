@@ -50,6 +50,41 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300); await shot('dark1');
   await p.reload(); await p.waitForTimeout(400);
   assert.equal(await p.getAttribute('html', 'lang'), 'en');           // اللغة محفوظة
+  // ----- السلة: مطفية بالوضع العادي، وشغالة مع ?preview -----
+  assert.equal(await p.locator('[data-add]').count(), 0);
+  await p.evaluate(() => localStorage.clear());
+  await p.goto(U + '?preview'); await p.waitForTimeout(500);
+  const pr = await p.evaluate(() => MENU.categories[0].items[0].price);
+  const bar = p.locator('#cartbar');
+  assert(await bar.isHidden());
+  await p.evaluate(() => scrollTo(0, 620)); await p.waitForTimeout(300);
+  await p.locator('.item [data-add]').first().click();
+  assert(await p.locator('#overlay').isHidden());                      // الزائد ما بيفتح صفحة الصنف
+  assert.equal(await bar.locator('.cb-n').textContent(), '1');
+  assert((await bar.locator('.cb-t').textContent()).includes(String(pr)));
+  await p.locator('.item [data-add]').first().click();
+  assert.equal(await bar.locator('.cb-n').textContent(), '2');
+  assert((await bar.locator('.cb-t').textContent()).includes(String(pr * 2)));  // صنفين = سعرين
+  await shot('cart_bar');
+  await p.reload(); await p.waitForTimeout(400);
+  assert.equal(await bar.locator('.cb-n').textContent(), '2');        // السلة محفوظة
+  await bar.locator('button').click(); await p.waitForTimeout(300); await shot('cart');
+  await p.locator('.page [data-sub]').click();
+  assert((await p.locator('.sum b').textContent()).includes(String(pr)));
+  await p.locator('#note').fill('بدون بصل <b>');
+  await p.locator('.cta').click(); await p.waitForTimeout(300);
+  await p.locator('.cta').click(); await p.waitForTimeout(200);        // فاضي = خطأ
+  assert.equal(await p.locator('.field em').count(), 2); await shot('checkout_err');
+  await p.locator('#f-name').fill('أحمد'); await p.locator('#f-phone').fill('123');
+  await p.locator('.cta').click(); await p.waitForTimeout(200);
+  assert.equal(await p.locator('.field em').count(), 1);               // رقم غلط
+  await p.locator('#f-phone').fill('+970 59-123 4567');
+  await p.locator('.cta').click(); await p.waitForTimeout(300); await shot('pay');
+  const pay = await p.locator('.page').textContent();
+  assert(pay.includes('0591234567') && pay.includes('أحمد') && pay.includes('بدون بصل <b>'));
+  await p.goBack(); await p.goBack(); await p.waitForTimeout(300);
+  await p.locator('.page [data-sub]').click(); await p.waitForTimeout(200);
+  assert(await p.locator('.empty').isVisible()); assert(await bar.isHidden());   // آخر صنف انشال
   assert.deepEqual(errs, []);
   console.log('ALL OK');
   await b.close(); srv.close();
