@@ -81,7 +81,7 @@ window.MENU = {
         { id: "herbal-tea", name: { ar: "زهورات واعشاب", en: "Herbal Tea" }, desc: { ar: "", en: "" }, price: 5, image: "assets/items/herbal-tea.webp" },
         { id: "cafe-latte", name: { ar: "كافيه لاتيه", en: "Caffè Latte" }, desc: { ar: "", en: "" }, price: 8, image: "assets/items/cafe-latte.webp" },
         { id: "nutella-cafe", name: { ar: "نوتيلا كافيه", en: "Nutella Caffè" }, desc: { ar: "", en: "" }, price: 10, image: "assets/items/nutella-cafe.webp" },
-        { id: "hot-chocolate", name: { ar: "هوت شوكليت", en: "Hot Chocolate" }, desc: { ar: "", en: "" }, price: 8, image: "assets/items/nutella-cafe.webp" },
+        { id: "hot-chocolate", name: { ar: "هوت شوكليت", en: "Hot Chocolate" }, desc: { ar: "", en: "" }, price: 8, image: "assets/items/hot-chocolate.webp" },
         { id: "cafe-mocha", name: { ar: "موكا كافيه", en: "Caffè Mocha" }, desc: { ar: "", en: "" }, price: 10, image: "assets/items/cafe-mocha.webp" },
       ],
     },
