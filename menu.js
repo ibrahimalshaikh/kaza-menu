@@ -94,6 +94,7 @@ window.MENU = {
         { id: "lemon-mint", name: { ar: "ليمون بالنعنع", en: "Lemon with Mint" }, desc: { ar: "", en: "" }, price: 12, image: "assets/items/lemon-mint.webp" },
         { id: "iced-spanish-latte", name: { ar: "ايس سبانيش لاتيه", en: "Iced Spanish Latte" }, desc: { ar: "", en: "" }, price: 15, image: "assets/items/iced-spanish-latte.webp" },
         { id: "iced-americano", name: { ar: "ايس امريكانو", en: "Iced Americano" }, desc: { ar: "", en: "" }, price: 10, image: "assets/items/iced-americano.webp" },
+        { id: "iced-cafe-latte", name: { ar: "ايس كافيه لاتيه", en: "Iced Caffè Latte" }, desc: { ar: "", en: "" }, price: 15, image: "assets/items/iced-cafe-latte.webp" },
       ],
     },
   ],
