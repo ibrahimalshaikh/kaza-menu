@@ -3,10 +3,10 @@
   const T = {
     ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام القائمة", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي", soon: "المنيو قيد التحديث، راجعنا قريباً",
       add: "إضافة", sub: "إنقاص", cart: "السلة", viewCart: "عرض السلة", empty: "السلة فارغة", note: "ملاحظات على الطلب (اختياري)", notePh: "مثال: بدون بصل", total: "المجموع", next: "متابعة",
-      info: "بياناتك", name: "الاسم", phone: "رقم الجوال", nameErr: "اكتب اسمك", phoneErr: "اكتب رقم جوال صحيح، مثال: 0591234567", toPay: "متابعة للدفع", pay: "الدفع", paySoon: "طرق الدفع قيد التجهيز وستتوفر قريباً." },
+      info: "بياناتك", name: "الاسم", phone: "رقم الجوال", nameErr: "اكتب اسمك", phoneErr: "رقم الجوال يجب أن يكون 10 أرقام ويبدأ بـ 05، مثال: 0591234567", toPay: "متابعة للدفع", pay: "الدفع", paySoon: "طرق الدفع قيد التجهيز وستتوفر قريباً." },
     en: { contact: "Contact number", popular: "Popular", cats: "Menu Categories", langs: "Available Languages", close: "Close", lang: "Language", fav: "Favorite", theme: "Dark mode", soon: "Menu is being updated, check back soon",
       add: "Add", sub: "Remove", cart: "Cart", viewCart: "View cart", empty: "Your cart is empty", note: "Order notes (optional)", notePh: "e.g. no onions", total: "Total", next: "Continue",
-      info: "Your details", name: "Name", phone: "Mobile number", nameErr: "Enter your name", phoneErr: "Enter a valid mobile number, e.g. 0591234567", toPay: "Continue to payment", pay: "Payment", paySoon: "Payment methods are being set up and will be available soon." },
+      info: "Your details", name: "Name", phone: "Mobile number", nameErr: "Enter your name", phoneErr: "The mobile number must be 10 digits starting with 05, e.g. 0591234567", toPay: "Continue to payment", pay: "Payment", paySoon: "Payment methods are being set up and will be available soon." },
   };
   const LANGS = [["ar", "العربية", "🇵🇸"], ["en", "English", "🇬🇧"]];
 
@@ -54,7 +54,7 @@
   let note = store.get("note") || "", info = load("info", {}), showErr = false, kind = "";
   const count = () => Object.values(cart).reduce((a, n) => a + n, 0);
   const total = () => Object.entries(cart).reduce((a, [id, n]) => a + byId(id).price * n, 0);
-  const normPhone = s => String(s || "").replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/\D/g, "").replace(/^(00)?97[02]/, "0");
+  const normPhone = s => String(s || "").replace(/[٠-٩۰-۹]/g, d => "٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹".indexOf(d) % 10).replace(/\D/g, "").replace(/^(00)?97[02]/, "0");
   const nameOk = () => (info.name || "").trim().length >= 2;
   const phoneOk = () => /^05\d{8}$/.test(normPhone(info.phone));
   const qtyHtml = id => {

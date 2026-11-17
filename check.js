@@ -78,6 +78,11 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await p.locator('#f-name').fill('أحمد'); await p.locator('#f-phone').fill('123');
   await p.locator('.cta').click(); await p.waitForTimeout(200);
   assert.equal(await p.locator('.field em').count(), 1);               // رقم غلط
+  for (const bad of ['٠٥٩٧١٤٤٧٠']) { await p.locator('#f-phone').fill(bad); await p.locator('.cta').click(); await p.waitForTimeout(200); assert.equal(await p.locator('.field em').count(), 1); } // 9 أرقام عربية = ناقص
+  for (const good of ['٠٥٩١٢٣٤٥٦٧', '۰۵۹۱۲۳۴۵۶۷']) {                // أرقام عربية وفارسية = مقبولة
+    await p.locator('#f-phone').fill(good); await p.locator('.cta').click(); await p.waitForTimeout(300);
+    assert((await p.locator('.page').textContent()).includes('0591234567'), good); await p.goBack(); await p.waitForTimeout(300);
+  }
   await p.locator('#f-phone').fill('+970 59-123 4567');
   await p.locator('.cta').click(); await p.waitForTimeout(300); await shot('pay');
   const pay = await p.locator('.page').textContent();
