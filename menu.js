@@ -82,6 +82,7 @@ window.MENU = {
         { id: "cafe-latte", name: { ar: "كافيه لاتيه", en: "Caffè Latte" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/cafe-latte.webp" },
         { id: "nutella-cafe", name: { ar: "نوتيلا كافيه", en: "Nutella Caffè" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/nutella-cafe.webp" },
         { id: "hot-chocolate", name: { ar: "هوت شوكليت", en: "Hot Chocolate" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/nutella-cafe.webp" },
+        { id: "cafe-mocha", name: { ar: "موكا كافيه", en: "Caffè Mocha" }, desc: { ar: "", en: "" }, price: null, image: "assets/items/cafe-mocha.webp" },
       ],
     },
   ],
