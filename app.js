@@ -2,10 +2,10 @@
   const M = window.MENU;
   const T = {
     ar: { contact: "رقم التواصل", popular: "الأكثر طلباً", cats: "أقسام القائمة", langs: "اللغات المتاحة", close: "إغلاق", lang: "اللغة", fav: "مفضلة", theme: "الوضع الليلي", soon: "المنيو قيد التحديث، راجعنا قريباً",
-      add: "إضافة", sub: "إنقاص", cart: "السلة", viewCart: "عرض السلة", empty: "السلة فارغة", note: "ملاحظات على الطلب (اختياري)", notePh: "مثال: بدون بصل", total: "المجموع", next: "متابعة",
+      add: "إضافة", sub: "إنقاص", size: "اختر الحجم", cart: "السلة", viewCart: "عرض السلة", empty: "السلة فارغة", note: "ملاحظات على الطلب (اختياري)", notePh: "مثال: بدون بصل", total: "المجموع", next: "متابعة",
       info: "بياناتك", name: "الاسم", phone: "رقم الجوال", nameErr: "اكتب اسمك", phoneErr: "رقم الجوال يجب أن يكون 10 أرقام ويبدأ بـ 05، مثال: 0591234567", toPay: "متابعة للدفع", pay: "الدفع", paySoon: "طرق الدفع قيد التجهيز وستتوفر قريباً." },
     en: { contact: "Contact number", popular: "Popular", cats: "Menu Categories", langs: "Available Languages", close: "Close", lang: "Language", fav: "Favorite", theme: "Dark mode", soon: "Menu is being updated, check back soon",
-      add: "Add", sub: "Remove", cart: "Cart", viewCart: "View cart", empty: "Your cart is empty", note: "Order notes (optional)", notePh: "e.g. no onions", total: "Total", next: "Continue",
+      add: "Add", sub: "Remove", size: "Choose size", cart: "Cart", viewCart: "View cart", empty: "Your cart is empty", note: "Order notes (optional)", notePh: "e.g. no onions", total: "Total", next: "Continue",
       info: "Your details", name: "Name", phone: "Mobile number", nameErr: "Enter your name", phoneErr: "The mobile number must be 10 digits starting with 05, e.g. 0591234567", toPay: "Continue to payment", pay: "Payment", paySoon: "Payment methods are being set up and will be available soon." },
   };
   const LANGS = [["ar", "العربية", "🇵🇸"], ["en", "English", "🇬🇧"]];
@@ -34,6 +34,7 @@
     x: '<path d="M18 6 6 18M6 6l12 12"/>',
     plus: '<path d="M12 5v14M5 12h14"/>',
     minus: '<path d="M5 12h14"/>',
+    down: '<path d="m6 9 6 6 6-6"/>',
     moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
     sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>',
   };
@@ -44,24 +45,44 @@
   const items = M.categories.flatMap(c => c.items.map((it, i) => ({ ...it, id: it.id || `${c.id}-${i}` })));
   const byId = id => items.find(it => it.id === id);
   const isDark = () => document.documentElement.dataset.theme === "dark";
+  // مفتاح السلة: معرّف الصنف، أو "معرّف:حجم" للصنف الي إله أحجام
+  const line = key => {
+    const [id, sid] = String(key).split(":");
+    const it = byId(id), size = it?.sizes?.find(z => z.id === sid);
+    if (!it || (it.sizes ? !size : sid != null)) return null;
+    const p = size ? size.price : it.price;
+    return p == null ? null : { it, size, price: p };
+  };
+  const lineName = l => tx(l.it.name) + (l.size ? ` (${tx(l.size.name)})` : "");
+  const priceHtml = it => it.sizes ? it.sizes.map(z => `<span class="sz">${tx(z.name)} ${price(z.price)}</span>`).join(" · ") : price(it.price);
 
   // ----- السلة: كل زبون سلته محفوظة على جهازه هو -----
   const ORDER = !!M.ordering || new URLSearchParams(location.search).has("preview");
   const bar = document.getElementById("cartbar");
   const load = (k, d) => { try { return JSON.parse(store.get(k)) ?? d; } catch { return d; } };
-  const cart = {}; // { معرّف الصنف: العدد }
-  for (const [id, n] of Object.entries(load("cart", {}))) if (byId(id)?.price != null && n > 0) cart[id] = Math.min(99, Math.floor(n));
+  const cart = {}; // { مفتاح السلة: العدد }
+  for (const [id, n] of Object.entries(load("cart", {}))) if (line(id) && n > 0) cart[id] = Math.min(99, Math.floor(n));
   let note = store.get("note") || "", info = load("info", {}), showErr = false, kind = "";
   const count = () => Object.values(cart).reduce((a, n) => a + n, 0);
-  const total = () => Object.entries(cart).reduce((a, [id, n]) => a + byId(id).price * n, 0);
+  const total = () => Object.entries(cart).reduce((a, [id, n]) => a + line(id).price * n, 0);
   const normPhone = s => String(s || "").replace(/[٠-٩۰-۹]/g, d => "٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹".indexOf(d) % 10).replace(/\D/g, "").replace(/^(00)?97[02]/, "0");
   const nameOk = () => (info.name || "").trim().length >= 2;
   const phoneOk = () => /^05\d{8}$/.test(normPhone(info.phone));
-  const qtyHtml = id => {
-    if (!ORDER || byId(id)?.price == null) return "";
-    const n = cart[id] || 0, t = T[lang];
-    return `<div class="qty${n ? " on" : ""}" data-q="${id}">${n ? `<button type="button" data-sub="${id}" aria-label="${t.sub}">${svg(I.minus, 18, 2.5)}</button><b>${n}</b>` : ""}<button type="button" data-add="${id}" aria-label="${t.add}">${svg(I.plus, 18, 2.5)}</button></div>`;
+  const openSizes = new Set(); // الأصناف الي خانة أحجامها مفتوحة
+  const ctl = (key, q = "") => {
+    const n = cart[key] || 0, t = T[lang];
+    return `<div class="qty${n ? " on" : ""}"${q}>${n ? `<button type="button" data-sub="${key}" aria-label="${t.sub}">${svg(I.minus, 18, 2.5)}</button><b>${n}</b>` : ""}<button type="button" data-add="${key}" aria-label="${t.add}">${svg(I.plus, 18, 2.5)}</button></div>`;
   };
+  const qtyHtml = key => {
+    if (!ORDER) return "";
+    const it = byId(key);
+    if (it?.sizes) { // سهم بدل الزائد، بيفتح خانة فيها كل حجم وسعره
+      const n = it.sizes.reduce((a, z) => a + (cart[`${key}:${z.id}`] || 0), 0), on = openSizes.has(key);
+      return `<div class="sizes${on ? " open" : ""}" data-q="${key}"><button type="button" class="sz-btn" data-sizes="${key}" aria-expanded="${on}" aria-label="${T[lang].size}">${n ? `<b>${n}</b>` : ""}${svg(I.down, 18, 2.5)}</button>${on ? `<div class="sz-list">${it.sizes.map(z => `<div class="sz-row"><span>${tx(z.name)}</span><span class="sz-p">${price(z.price)}</span>${ctl(`${key}:${z.id}`)}</div>`).join("")}</div>` : ""}</div>`;
+    }
+    return line(key) ? ctl(key, ` data-q="${key}"`) : "";
+  };
+  const refreshQty = () => document.querySelectorAll("[data-q]").forEach(el => { el.outerHTML = qtyHtml(el.dataset.q); });
   function renderBar() {
     const n = ORDER ? count() : 0;
     bar.hidden = !n;
@@ -69,12 +90,12 @@
     bar.innerHTML = n ? `<button class="cartbtn" data-open="cart"><span class="cb-n">${n}</span><span class="cb-l">${T[lang].viewCart}</span><span class="cb-t">${price(total())}</span></button>` : "";
   }
   function setQty(id, n) {
-    if (byId(id)?.price == null) return;
+    if (!line(id)) return;
     n = Math.max(0, Math.min(99, n));
     if (n) cart[id] = n; else delete cart[id];
     store.set("cart", JSON.stringify(cart));
     if (kind === "cart") renderOverlay(); // الأسطر والمجموع بيتغيروا
-    document.querySelectorAll("[data-q]").forEach(el => { el.outerHTML = qtyHtml(el.dataset.q); });
+    refreshQty();
     renderBar();
   }
 
@@ -91,7 +112,7 @@
       <h1>${tx(M.name)}</h1>
       <p class="sub">${t.contact}: <span class="ltr">${esc(M.phone)}</span></p>
       ${popular.length ? `<div class="popular"><div class="popular-title">${t.popular}</div><div class="scroller"><div class="pop-row">
-        ${popular.map(it => `<div class="pop" data-open="item-${it.id}">${img(it)}<div class="pop-name">${tx(it.name)}</div><div class="pop-price">${price(it.price)}</div></div>`).join("")}
+        ${popular.map(it => `<div class="pop" data-open="item-${it.id}">${img(it)}<div class="pop-name">${tx(it.name)}</div><div class="pop-price">${priceHtml(it)}</div></div>`).join("")}
       </div></div></div>` : ""}
       ${M.categories.length ? "" : `<p class="soon">${t.soon}</p>`}
       <div class="nav"${M.categories.length ? "" : " hidden"}><div class="nav-in">
@@ -103,7 +124,7 @@
       ${M.categories.map(c => `<section class="cat" id="${esc(c.id)}">
         <div class="cat-title">${tx(c.name)}</div>
         ${c.items.map((it, i) => { const id = it.id || `${c.id}-${i}`; return `<div class="item" data-open="item-${id}">
-          <div class="item-body"><div class="item-name clamp2">${tx(it.name)}</div><div class="item-price">${price(it.price)}</div>${tx(it.desc) ? `<p class="item-desc clamp2">${tx(it.desc)}</p>` : ""}${qtyHtml(id)}</div>
+          <div class="item-body"><div class="item-name clamp2">${tx(it.name)}</div><div class="item-price">${priceHtml(it)}</div>${tx(it.desc) ? `<p class="item-desc clamp2">${tx(it.desc)}</p>` : ""}${qtyHtml(id)}</div>
           <div class="item-pic">${img(it)}<button class="heart${favs.has(id) ? " on" : ""}" data-fav="${id}" aria-label="${t.fav}">${svg(I.heart)}</button></div>
         </div>`; }).join("")}
         <div class="zig"></div>
@@ -139,10 +160,10 @@
       const it = byId(id);
       html = `<div class="detail"><div class="detail-top"><button class="d-close" data-close aria-label="${t.close}">${svg(I.x)}</button>${img(it)}</div>
         <div class="d-body"><div class="d-head"><div class="d-name">${tx(it.name)}</div><button class="d-heart${favs.has(id) ? " on" : ""}" data-fav="${id}" aria-label="${t.fav}">${svg(I.heart)}</button></div>
-        <div class="d-price">${price(it.price)}</div>${tx(it.desc) ? `<div class="d-desc">${tx(it.desc)}</div>` : ""}${qtyHtml(id)}</div></div>`;
+        <div class="d-price">${priceHtml(it)}</div>${tx(it.desc) ? `<div class="d-desc">${tx(it.desc)}</div>` : ""}${qtyHtml(id)}</div></div>`;
     } else if (kind === "cart") {
       html = `<div class="page">${head(t.cart)}${count() ? `<div class="page-body">
-        ${Object.entries(cart).map(([id, n]) => { const it = byId(id); return `<div class="line">${img(it)}<div class="line-main"><div class="line-name">${tx(it.name)}</div><div class="line-price">${price(it.price * n)}</div></div>${qtyHtml(id)}</div>`; }).join("")}
+        ${Object.entries(cart).map(([id, n]) => { const l = line(id); return `<div class="line">${img(l.it)}<div class="line-main"><div class="line-name">${lineName(l)}</div><div class="line-price">${price(l.price * n)}</div></div>${qtyHtml(id)}</div>`; }).join("")}
         <label class="field"><span>${t.note}</span><textarea data-f="note" id="note" rows="2" maxlength="200" placeholder="${t.notePh}">${esc(note)}</textarea></label>
         </div><div class="page-foot">${sum}<button type="button" class="cta" data-open="checkout">${t.next}</button></div>` : `<div class="page-body"><p class="empty">${t.empty}</p></div>`}</div>`;
     } else if (kind === "checkout") {
@@ -152,7 +173,7 @@
         </div><div class="page-foot">${sum}<button class="cta">${t.toPay}</button></div></form>`;
     } else if (kind === "pay") {
       html = `<div class="page">${head(t.pay)}<div class="page-body">
-        ${Object.entries(cart).map(([id, n]) => `<div class="row"><span><b class="ltr">${n}×</b> ${tx(byId(id).name)}</span><span>${price(byId(id).price * n)}</span></div>`).join("")}
+        ${Object.entries(cart).map(([id, n]) => `<div class="row"><span><b class="ltr">${n}×</b> ${lineName(line(id))}</span><span>${price(line(id).price * n)}</span></div>`).join("")}
         ${note.trim() ? `<div class="row muted"><span>${esc(note)}</span></div>` : ""}
         <div class="row muted"><span>${esc(info.name)}</span><span class="ltr">${esc(normPhone(info.phone))}</span></div>
         ${sum}<p class="notice">${t.paySoon}</p></div></div>`;
@@ -201,6 +222,11 @@
     if ((b = el("[data-add],[data-sub]"))) {
       const id = b.dataset.add || b.dataset.sub;
       setQty(id, (cart[id] || 0) + (b.dataset.add ? 1 : -1));
+    } else if ((b = el("[data-sizes]"))) {
+      const id = b.dataset.sizes;
+      openSizes.has(id) ? openSizes.delete(id) : openSizes.add(id);
+      refreshQty();
+    } else if (el(".qty,.sz-list")) { // ضغطة جوا خانة العدد أو الأحجام ما بتفتح صفحة الصنف
     } else if ((b = el("[data-fav]"))) {
       const id = b.dataset.fav;
       favs.has(id) ? favs.delete(id) : favs.add(id);

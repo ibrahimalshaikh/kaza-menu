@@ -52,6 +52,7 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   assert.equal(await p.getAttribute('html', 'lang'), 'en');           // اللغة محفوظة
   // ----- السلة: مطفية بالوضع العادي، وشغالة مع ?preview -----
   assert.equal(await p.locator('[data-add]').count(), 0);
+  assert.equal(await p.locator('[data-sizes]').count(), 0);
   await p.evaluate(() => localStorage.clear());
   await p.goto(U + '?preview'); await p.waitForTimeout(500);
   const pr = await p.evaluate(() => MENU.categories[0].items[0].price);
@@ -90,6 +91,30 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await p.goBack(); await p.goBack(); await p.waitForTimeout(300);
   await p.locator('.page [data-sub]').click(); await p.waitForTimeout(200);
   assert(await p.locator('.empty').isVisible()); assert(await bar.isHidden());   // آخر صنف انشال
+  // ----- أصناف بأحجام: سهم بدل الزائد، وكل حجم بسعره -----
+  const sized = await p.evaluate(() => { const it = MENU.categories.flatMap(c => c.items).find(i => i.sizes); return it && { id: it.id, a: it.sizes[0].price, b: it.sizes[1].price }; });
+  if (sized) {
+    await p.goto(U); await p.waitForTimeout(400);
+    const row = p.locator('.item', { has: p.locator(`[data-fav="${sized.id}"]`) });
+    const pt = await row.locator('.item-price').textContent();
+    assert(pt.includes(String(sized.a)) && pt.includes(String(sized.b)));   // السعرين ظاهرين حتى بدون طلب
+    await p.goto(U + '?preview'); await p.waitForTimeout(400);
+    const box = p.locator(`.item [data-q="${sized.id}"]`);
+    await box.scrollIntoViewIfNeeded();
+    assert.equal(await box.locator('[data-add]').count(), 0);            // مسكّرة = سهم بس
+    await box.locator('[data-sizes]').click();
+    assert(await p.locator('#overlay').isHidden());
+    assert.equal(await box.locator('.sz-row').count(), 2);
+    await box.locator('[data-add]').nth(0).click();
+    await box.locator('[data-add]').nth(1).click(); await box.locator('[data-add]').nth(1).click();
+    assert.equal(await bar.locator('.cb-n').textContent(), '3');
+    assert((await bar.locator('.cb-t').textContent()).includes(String(sized.a + 2 * sized.b)));
+    await box.scrollIntoViewIfNeeded(); await shot('sizes');
+    await box.locator('.sz-row span').first().click(); assert(await p.locator('#overlay').isHidden());
+    await bar.locator('button').click(); await p.waitForTimeout(300); await shot('sizes_cart');
+    assert.equal(await p.locator('.page .line').count(), 2);            // كل حجم سطر لحاله
+    await p.evaluate(() => localStorage.clear());
+  }
   assert.deepEqual(errs, []);
   console.log('ALL OK');
   await b.close(); srv.close();

@@ -3,6 +3,7 @@
 // price: null = السعر لسا مش محدد (ما بيظهر). desc = المكونات.
 // image: مسار الصورة داخل assets/items/ (اتركه فاضي "" لو ما في صورة).
 // id: معرّف الصنف الثابت. ما يتغيّر بعد النشر لأن السلة والطلبات بتعتمد عليه.
+// sizes: للصنف الي إله أحجام (سنجل/دبل). بتنكتب بدل price، وكل حجم إله id وسعر.
 // featured: true = الصنف بيظهر فوق بقسم "الأكثر طلباً".
 window.MENU = {
   name: { ar: "كازا", en: "Kaza" },
@@ -64,6 +65,17 @@ window.MENU = {
         { id: "ranchos", name: { ar: "رانشوس", en: "Ranchos" }, desc: { ar: "", en: "" }, price: 20, image: "assets/items/ranchos.webp?v=2" },
         { id: "greek-salad", name: { ar: "سلطة يونانية", en: "Greek Salad" }, desc: { ar: "", en: "" }, price: 16, image: "assets/items/greek-salad.webp?v=2" },
         { id: "healthy-green", name: { ar: "هيلثي جرين", en: "Healthy Green" }, desc: { ar: "", en: "" }, price: 23, image: "assets/items/healthy-green.webp?v=2" },
+      ],
+    },
+    {
+      id: "hot-drinks",
+      name: { ar: "المشروبات الساخنة", en: "Hot Drinks" },
+      items: [
+        { id: "turkish-coffee", name: { ar: "قهوة تركي", en: "Turkish Coffee" }, desc: { ar: "", en: "" }, sizes: [{ id: "single", name: { ar: "سنجل", en: "Single" }, price: 3 }, { id: "double", name: { ar: "دبل", en: "Double" }, price: 5 }], image: "assets/items/espresso.webp" },
+        { id: "espresso", name: { ar: "قهوة اسبريسو", en: "Espresso" }, desc: { ar: "", en: "" }, sizes: [{ id: "single", name: { ar: "سنجل", en: "Single" }, price: 7 }, { id: "double", name: { ar: "دبل", en: "Double" }, price: 10 }], image: "assets/items/espresso.webp" },
+        { id: "americano", name: { ar: "امريكانو", en: "Americano" }, desc: { ar: "", en: "" }, price: 8, image: "assets/items/americano.webp" },
+        { id: "nescafe", name: { ar: "نسكافيه", en: "Nescafé" }, desc: { ar: "", en: "" }, price: 5, image: "assets/items/nescafe.webp" },
+        { id: "nescafe-milk", name: { ar: "نسكافيه بالحليب", en: "Nescafé with Milk" }, desc: { ar: "", en: "" }, price: 6, image: "assets/items/nescafe.webp" },
       ],
     },
   ],

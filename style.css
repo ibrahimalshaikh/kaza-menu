@@ -167,3 +167,15 @@ body.has-cart #app{padding-bottom:112px}
 .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
 .row.muted{color:var(--muted2);font-size:14px}
 .notice{margin-top:8px;padding:14px;border-radius:12px;background:var(--theme-soft);border:1px solid var(--theme);text-align:center}
+/* أصناف بأحجام: سهم بيفتح خانة الأحجام */
+.sz{white-space:nowrap}
+.sizes{margin-top:10px}
+.sz-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;min-width:36px;padding:0 9px;border-radius:999px;background:var(--theme);color:#fff;font-weight:var(--semi)}
+.sz-btn svg{transition:transform .15s}
+.sizes.open .sz-btn svg{transform:rotate(180deg)}
+.sz-list{margin-top:8px;border:1px solid var(--line);border-radius:12px;background:var(--sheet)}
+.sz-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-top:1px solid var(--line)}
+.sz-row:first-child{border-top:0}
+.sz-row>span:first-child{flex:1;font-weight:var(--semi)}
+.sz-p{color:var(--muted2)}
+.sz-row .qty{margin-top:0}
