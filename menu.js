@@ -85,5 +85,16 @@ window.MENU = {
         { id: "cafe-mocha", name: { ar: "موكا كافيه", en: "Caffè Mocha" }, desc: { ar: "", en: "" }, price: 10, image: "assets/items/cafe-mocha.webp" },
       ],
     },
+    {
+      id: "cold-drinks",
+      name: { ar: "مشروبات باردة", en: "Cold Drinks" },
+      items: [
+        { id: "mango-juice", name: { ar: "عصير مانجا", en: "Mango Juice" }, desc: { ar: "", en: "" }, price: 12, image: "assets/items/mango-juice.webp" },
+        { id: "orange-juice", name: { ar: "عصير برتقال", en: "Orange Juice" }, desc: { ar: "", en: "" }, price: 12, image: "assets/items/orange-juice.webp" },
+        { id: "lemon-mint", name: { ar: "ليمون بالنعنع", en: "Lemon with Mint" }, desc: { ar: "", en: "" }, price: 12, image: "assets/items/lemon-mint.webp" },
+        { id: "iced-spanish-latte", name: { ar: "ايس سبانيش لاتيه", en: "Iced Spanish Latte" }, desc: { ar: "", en: "" }, price: 15, image: "assets/items/iced-spanish-latte.webp" },
+        { id: "iced-americano", name: { ar: "ايس امريكانو", en: "Iced Americano" }, desc: { ar: "", en: "" }, price: 10, image: "assets/items/iced-americano.webp" },
+      ],
+    },
   ],
 };
