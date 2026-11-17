@@ -43,17 +43,17 @@ window.MENU = {
         { id: "a-la-king", name: { ar: "ألا كينج", en: "À La King" }, desc: { ar: "قطع صدر الدجاج مع جبنة الموزاريلا والشبت", en: "Chicken breast pieces with mozzarella cheese and dill" }, price: 25, image: "assets/items/a-la-king.webp?v=2" },
         { id: "steak-stack", name: { ar: "ستيك ستاك", en: "Steak Stack" }, desc: { ar: "قطع صدر الدجاج مع شرائح البندورة والجبنة وقطع الزيتون", en: "Chicken breast pieces with tomato slices, cheese and olive pieces" }, price: 25, image: "assets/items/steak-stack.webp?v=2" },
         { id: "chicken-picante", name: { ar: "تشكن بيكانتي", en: "Chicken Picante" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الجبنة وصوص البيكانتي", en: "Crispy chicken breast pieces with cheese and Picante sauce" }, price: 25, image: "assets/items/chicken-picante.webp?v=2" },
-        { id: "mushroom-melt", name: { ar: "مشروم ميلت", en: "Mushroom Melt" }, desc: { ar: "قطع صدر الدجاج مع الكريمة والمشروم وصوص خاص وجبنة", en: "Chicken breast pieces with cream, mushrooms, special sauce and cheese" }, price: 25, image: "assets/items/mushroom-melt.webp" },
+        { id: "mushroom-melt", name: { ar: "مشروم ميلت", en: "Mushroom Melt" }, desc: { ar: "قطع صدر الدجاج مع الكريمة والمشروم وصوص خاص وجبنة", en: "Chicken breast pieces with cream, mushrooms, special sauce and cheese" }, price: 25, image: "assets/items/mushroom-melt.webp?v=2" },
       ],
     },
     {
       id: "strips",
       name: { ar: "ستريبس", en: "Strips" },
       items: [
-        { id: "strips-wrap", name: { ar: "ستريبس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickles" }, price: 20, image: "assets/items/strips-wrap.webp" },
-        { id: "strips-meal", name: { ar: "وجبة ستريبس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast pieces with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp" },
-        { id: "cheesy-pop-fries", name: { ar: "تشيزي بوب فرايز", en: "Cheesy Pop Fries" }, desc: { ar: "قطع دجاج مقرمش مع بطاطا مقلية وصوص جبنة وقطع هالبينو", en: "Crispy chicken pieces with French fries, cheese sauce and jalapeño pieces" }, price: 25, image: "assets/items/cheesy-pop-fries.webp" },
-        { id: "crazy-burger", name: { ar: "كريزي برجر", en: "Crazy Burger" }, desc: { ar: "قطع صدر الدجاج المقرمش مع شرائح البندورة والخس والجبنة", en: "Crispy chicken breast pieces with tomato slices, lettuce and cheese" }, price: 25, image: "assets/items/crazy-burger.webp" },
+        { id: "strips-wrap", name: { ar: "ستريبس راب", en: "Strips Wrap" }, desc: { ar: "قطع صدر الدجاج المقرمش مع الخس وصوص رانش ومخلل الخيار", en: "Crispy chicken breast pieces with lettuce, ranch sauce and pickles" }, price: 20, image: "assets/items/strips-wrap.webp?v=2" },
+        { id: "strips-meal", name: { ar: "وجبة ستريبس", en: "Strips Meal" }, desc: { ar: "قطع صدر الدجاج مع البطاطا مع صوص رانش مع خبزة", en: "Chicken breast pieces with fries, ranch sauce and a bun" }, price: 25, image: "assets/items/strips-meal.webp?v=2" },
+        { id: "cheesy-pop-fries", name: { ar: "تشيزي بوب فرايز", en: "Cheesy Pop Fries" }, desc: { ar: "قطع دجاج مقرمش مع بطاطا مقلية وصوص جبنة وقطع هالبينو", en: "Crispy chicken pieces with French fries, cheese sauce and jalapeño pieces" }, price: 25, image: "assets/items/cheesy-pop-fries.webp?v=2" },
+        { id: "crazy-burger", name: { ar: "كريزي برجر", en: "Crazy Burger" }, desc: { ar: "قطع صدر الدجاج المقرمش مع شرائح البندورة والخس والجبنة", en: "Crispy chicken breast pieces with tomato slices, lettuce and cheese" }, price: 25, image: "assets/items/crazy-burger.webp?v=2" },
       ],
     },
     {
