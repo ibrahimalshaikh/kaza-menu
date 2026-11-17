@@ -97,5 +97,16 @@ window.MENU = {
         { id: "iced-cafe-latte", name: { ar: "ايس كافيه لاتيه", en: "Iced Caffè Latte" }, desc: { ar: "", en: "" }, price: 15, image: "assets/items/iced-cafe-latte.webp" },
       ],
     },
+    {
+      id: "desserts",
+      name: { ar: "حلويات", en: "Desserts" },
+      items: [
+        { id: "mini-pancake", name: { ar: "ميني بان كيك", en: "Mini Pancakes" }, desc: { ar: "", en: "" }, price: 18, image: "assets/items/mini-pancake.webp" },
+        { id: "crepe", name: { ar: "كريب", en: "Crêpe" }, desc: { ar: "", en: "" }, price: 18, image: "assets/items/crepe.webp" },
+        { id: "pancake", name: { ar: "بان كيك", en: "Pancakes" }, desc: { ar: "", en: "" }, price: 18, image: "assets/items/pancake.webp" },
+        { id: "fettuccine-crepe", name: { ar: "فتتشيني كريب", en: "Fettuccine Crêpe" }, desc: { ar: "", en: "" }, price: 18, image: "assets/items/fettuccine-crepe.webp" },
+        { id: "waffle-stick", name: { ar: "وافل ستيك", en: "Waffle Stick" }, desc: { ar: "", en: "" }, price: 18, image: "assets/items/waffle-stick.webp" },
+      ],
+    },
   ],
 };
