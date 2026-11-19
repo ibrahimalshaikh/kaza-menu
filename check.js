@@ -34,12 +34,13 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   assert.equal(await idx(), 3); assert(await p.locator('[data-slide="3"]').evaluate(e => e.classList.contains('on')));
   await p.waitForTimeout(2000); assert.equal(await idx(), 3);          // بعد ما الزبون يختار بتوقف شوي
   await shot('slides');
-  await p.locator('[data-slide="4"]').click(); await p.waitForTimeout(800); assert.equal(await idx(), 4);
+  const last = await p.evaluate(() => MENU.slides.length - 1);
+  await p.locator(`[data-slide="${last}"]`).click(); await p.waitForTimeout(800); assert.equal(await idx(), last);
   const xs = []; for (let t = 0; t < 32; t++) { xs.push(await p.evaluate(() => slides.scrollLeft)); await p.waitForTimeout(250); }
   const seq = xs.map(x => Math.abs(x) / 390);
-  assert(seq.some(v => v > 4.2), 'went past the last slide onto the loop copy');          // بعد الأخيرة بتكمل لقدام
-  assert(seq.some((v, i) => i && seq[i - 1] > 4.2 && v < 0.5), 'snapped back to the first');
-  assert(!seq.some(v => v > 1.5 && v < 3.5), 'wrap rewound backwards');                  // وما بترجع لورا مروراً بالصور النص
+  assert(seq.some(v => v > last + 0.2), 'went past the last slide onto the loop copy');          // بعد الأخيرة بتكمل لقدام
+  assert(seq.some((v, i) => i && seq[i - 1] > last + 0.2 && v < 0.5), 'snapped back to the first');
+  assert(!seq.some(v => v > 1.5 && v < last - 0.5), 'wrap rewound backwards');                  // وما بترجع لورا مروراً بالصور النص
   await p.locator('[data-slide="3"]').click(); await p.waitForTimeout(800);
   await slides.nth(3).click(); await p.waitForTimeout(300);
   assert(await p.locator('.detail').isVisible());                       // الكبسة بتفتح الصنف

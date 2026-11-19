@@ -16,6 +16,9 @@ window.MENU = {
     { image: "assets/slides/chicken-corn-cream.webp", item: "chicken-corn-cream" },
     { image: "assets/slides/strips-meal.webp", item: "strips-meal" },
     { image: "assets/slides/healthy-green.webp", item: "healthy-green" },
+    { image: "assets/slides/ranchos.webp", item: "ranchos" },
+    { image: "assets/slides/strips-wrap.webp", item: "strips-wrap" },
+    { image: "assets/slides/crepe.webp", item: "crepe" },
   ],
   // الطلب والسلة: false = منيو عرض بس. للتجربة قبل التشغيل افتح الرابط مع ?preview بآخره
   ordering: false,
