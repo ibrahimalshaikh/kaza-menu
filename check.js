@@ -17,6 +17,20 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   assert(!(await p.content()).match(/shisha|شيشة/i));                  // بدون شيشة
   assert((await p.textContent('.sub')).includes('0593608095'));
   await shot('ar1');
+  // ----- صور الغلاف: 5 صور، بتتبدّل لحالها، النقاط بتنقل، والكبسة بتفتح الصنف -----
+  const slides = p.locator('#slides img');
+  assert.equal(await slides.count(), await p.evaluate(() => MENU.slides.length));
+  const idx = () => p.evaluate(() => Math.round(slides.scrollLeft / slides.clientWidth));
+  assert.equal(await idx(), 0);
+  await p.waitForTimeout(2200); assert.equal(await idx(), 1);          // بعد ثانية ونص بتنتقل لحالها
+  await p.locator('[data-slide="3"]').click(); await p.waitForTimeout(800);
+  assert.equal(await idx(), 3); assert(await p.locator('[data-slide="3"]').evaluate(e => e.classList.contains('on')));
+  await p.waitForTimeout(2000); assert.equal(await idx(), 3);          // بعد ما الزبون يختار بتوقف شوي
+  await shot('slides');
+  await slides.nth(3).click(); await p.waitForTimeout(300);
+  assert(await p.locator('.detail').isVisible());                       // الكبسة بتفتح الصنف
+  await p.goBack(); await p.waitForTimeout(300);
+  const lb = await p.locator('.topbar button').boundingBox(); assert(lb.x < 60); // زر اللغة على اليسار
   await p.evaluate(() => scrollTo(0, 620)); await p.waitForTimeout(400); await shot('ar2');
   const ids = await p.evaluate(() => MENU.categories.map(c => c.id));
   if (!ids.length) assert(await p.locator('.soon').isVisible()); // منيو فاضي

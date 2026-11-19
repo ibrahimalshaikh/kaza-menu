@@ -105,7 +105,9 @@
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     const popular = items.filter(it => it.featured);
     app.innerHTML = `<div class="wrap">
-      <div class="cover" style="background-image:url(assets/cover.webp)">
+      <div class="cover">
+        <div class="slides" id="slides" dir="ltr">${M.slides.map((sl, i) => `<img src="${esc(sl.image)}" alt="${tx(byId(sl.item)?.name)}"${byId(sl.item) ? ` data-open="item-${esc(sl.item)}"` : ""}${i ? ' loading="lazy"' : ""}>`).join("")}</div>
+        ${M.slides.length > 1 ? `<div class="dots" dir="ltr">${M.slides.map((_, i) => `<button type="button" data-slide="${i}" aria-label="${i + 1}"><span></span></button>`).join("")}</div>` : ""}
         <div class="topbar"><button data-open="lang" aria-label="${t.lang}">${svg(I.globe, 28, 1.5)}</button></div>
         <div class="logo"><img src="assets/logo.webp" alt="Kaza Restaurant"></div>
       </div>
@@ -132,7 +134,26 @@
       <div class="theme-row"><button class="toggle" data-theme-toggle aria-label="${t.theme}">${svg(I.moon, 18)}${svg(I.sun, 18)}<span class="knob">${svg(isDark() ? I.moon : I.sun, 14)}</span></button></div>
     </div>`;
     renderBar();
+    initSlides();
     spy();
+  }
+
+  // ----- صور الغلاف: بتتبدّل لحالها، والزبون بيقدر يسحب أو يكبس على النقاط -----
+  let slideIdx = 0, slideTimer, slideHold = 0;
+  const AUTO_MS = 1500, PAUSE_MS = 5000; // بعد ما الزبون يلمس الصور بتوقف 5 ثواني قبل ما ترجع تتحرك
+  function initSlides() {
+    clearInterval(slideTimer);
+    const box = document.getElementById("slides"), n = box?.children.length;
+    if (!n) return;
+    const dots = [...document.querySelectorAll("[data-slide]")];
+    const show = i => dots.forEach((d, k) => d.classList.toggle("on", k === i));
+    const goTo = (i, smooth = true) => box.scrollTo({ left: ((i + n) % n) * box.clientWidth, behavior: smooth ? "smooth" : "instant" });
+    box.addEventListener("scroll", () => { slideIdx = Math.round(box.scrollLeft / box.clientWidth); show(slideIdx); }, { passive: true });
+    ["pointerdown", "touchstart", "wheel"].forEach(ev => box.addEventListener(ev, () => { slideHold = Date.now(); }, { passive: true }));
+    dots.forEach((d, k) => d.addEventListener("click", () => { slideHold = Date.now(); goTo(k); }));
+    goTo(slideIdx, false); show(slideIdx);
+    if (n > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      slideTimer = setInterval(() => { if (!document.hidden && Date.now() - slideHold > PAUSE_MS) goTo(slideIdx + 1); }, AUTO_MS);
   }
 
   // ----- النوافذ: اللغة / الأقسام / تفاصيل الصنف (مربوطة بالـ hash عشان زر الرجوع) -----

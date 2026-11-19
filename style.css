@@ -36,8 +36,16 @@ img{display:block;max-width:100%}
 .wrap{max-width:560px;margin:0 auto}
 
 /* الغلاف والشعار */
-.cover{height:285px;background:#cbd5e1 center/cover no-repeat;border-radius:0 0 10px 10px;position:relative}
-.topbar{display:flex;gap:8px;padding:16px}
+/* الغلاف بنسبة صور الإعلانات (16:9) عشان الاسم والسعر المكتوبين عليها ما ينقصوا */
+.cover{position:relative;aspect-ratio:16/9;background:#cbd5e1;border-radius:0 0 10px 10px}
+.slides{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;border-radius:inherit}
+.slides::-webkit-scrollbar{display:none}
+.slides img{flex:none;width:100%;height:100%;object-fit:cover;scroll-snap-align:start;cursor:pointer}
+.dots{position:absolute;right:8px;bottom:6px;z-index:1;display:flex}
+.dots button{padding:8px 4px;display:flex}
+.dots span{width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:0 0 2px rgba(0,0,0,.5);transition:width .2s}
+.dots .on span{width:18px;background:#fff}
+.topbar{position:relative;z-index:1;display:flex;gap:8px;padding:16px;direction:ltr;width:max-content;margin-right:auto}
 .topbar button{background:rgba(30,41,59,.6);padding:8px;border-radius:12px;color:#fff;display:flex}
 .logo{position:absolute;bottom:-56px;left:0;right:0;display:flex;justify-content:center}
 .logo img{width:128px;height:128px;border-radius:50%;border:4px solid #fff;box-shadow:var(--shadow-md);object-fit:cover;background:#fff}

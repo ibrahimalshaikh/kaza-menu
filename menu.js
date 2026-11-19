@@ -9,6 +9,14 @@ window.MENU = {
   name: { ar: "كازا", en: "Kaza" },
   phone: "0593608095",
   currency: "₪",
+  // صور الغلاف المتحركة بالترتيب. item = الصنف الي بيفتح لما الزبون يكبس على الصورة
+  slides: [
+    { image: "assets/slides/crazy-burger.webp", item: "crazy-burger" },
+    { image: "assets/slides/greek-salad.webp", item: "greek-salad" },
+    { image: "assets/slides/chicken-corn-cream.webp", item: "chicken-corn-cream" },
+    { image: "assets/slides/strips-meal.webp", item: "strips-meal" },
+    { image: "assets/slides/healthy-green.webp", item: "healthy-green" },
+  ],
   // الطلب والسلة: false = منيو عرض بس. للتجربة قبل التشغيل افتح الرابط مع ?preview بآخره
   ordering: false,
   categories: [
