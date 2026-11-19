@@ -19,14 +19,28 @@ const srv = http.createServer((q, s) => { const f = path.join(ROOT, decodeURICom
   await shot('ar1');
   // ----- صور الغلاف: 5 صور، بتتبدّل لحالها، النقاط بتنقل، والكبسة بتفتح الصنف -----
   const slides = p.locator('#slides img');
-  assert.equal(await slides.count(), await p.evaluate(() => MENU.slides.length));
-  const idx = () => p.evaluate(() => Math.round(slides.scrollLeft / slides.clientWidth));
+  assert.equal(await slides.count(), await p.evaluate(() => MENU.slides.length + 1)); // + نسخة الأولى للفة
+  const idx = () => p.evaluate(() => Math.round(Math.abs(slides.scrollLeft) / slides.clientWidth) % MENU.slides.length);
   assert.equal(await idx(), 0);
-  await p.waitForTimeout(2200); assert.equal(await idx(), 1);          // بعد ثانية ونص بتنتقل لحالها
+  // الفرق بين نقلتين لحالهم حوالي ثانيتين
+  const gap = await p.evaluate(() => new Promise(res => { const ts = []; let last = -1;
+    const t = setInterval(() => { const i = Math.round(Math.abs(slides.scrollLeft) / slides.clientWidth); if (i !== last) { last = i; ts.push(performance.now()); }
+      if (ts.length === 3) { clearInterval(t); res(ts[2] - ts[1]); } }, 20); }));
+  assert(gap > 1800 && gap < 2300, 'gap ' + gap);
+  await p.locator('[data-slide="0"]').click(); await p.waitForTimeout(800);
+  await p.evaluate(() => slides.scrollTo({ left: -slides.clientWidth, behavior: 'instant' })); await p.waitForTimeout(300); assert.equal(await idx(), 1);
+  assert((await slides.nth(2).boundingBox()).x < (await slides.nth(1).boundingBox()).x); // الصورة الجاية على اليسار: الحركة من اليمين لليسار
   await p.locator('[data-slide="3"]').click(); await p.waitForTimeout(800);
   assert.equal(await idx(), 3); assert(await p.locator('[data-slide="3"]').evaluate(e => e.classList.contains('on')));
   await p.waitForTimeout(2000); assert.equal(await idx(), 3);          // بعد ما الزبون يختار بتوقف شوي
   await shot('slides');
+  await p.locator('[data-slide="4"]').click(); await p.waitForTimeout(800); assert.equal(await idx(), 4);
+  const xs = []; for (let t = 0; t < 32; t++) { xs.push(await p.evaluate(() => slides.scrollLeft)); await p.waitForTimeout(250); }
+  const seq = xs.map(x => Math.abs(x) / 390);
+  assert(seq.some(v => v > 4.2), 'went past the last slide onto the loop copy');          // بعد الأخيرة بتكمل لقدام
+  assert(seq.some((v, i) => i && seq[i - 1] > 4.2 && v < 0.5), 'snapped back to the first');
+  assert(!seq.some(v => v > 1.5 && v < 3.5), 'wrap rewound backwards');                  // وما بترجع لورا مروراً بالصور النص
+  await p.locator('[data-slide="3"]').click(); await p.waitForTimeout(800);
   await slides.nth(3).click(); await p.waitForTimeout(300);
   assert(await p.locator('.detail').isVisible());                       // الكبسة بتفتح الصنف
   await p.goBack(); await p.waitForTimeout(300);

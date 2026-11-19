@@ -106,8 +106,8 @@
     const popular = items.filter(it => it.featured);
     app.innerHTML = `<div class="wrap">
       <div class="cover">
-        <div class="slides" id="slides" dir="ltr">${M.slides.map((sl, i) => `<img src="${esc(sl.image)}" alt="${tx(byId(sl.item)?.name)}"${byId(sl.item) ? ` data-open="item-${esc(sl.item)}"` : ""}${i ? ' loading="lazy"' : ""}>`).join("")}</div>
-        ${M.slides.length > 1 ? `<div class="dots" dir="ltr">${M.slides.map((_, i) => `<button type="button" data-slide="${i}" aria-label="${i + 1}"><span></span></button>`).join("")}</div>` : ""}
+        <div class="slides" id="slides" dir="rtl">${M.slides.map((sl, i) => `<img src="${esc(sl.image)}" alt="${tx(byId(sl.item)?.name)}"${byId(sl.item) ? ` data-open="item-${esc(sl.item)}"` : ""}${i ? ' loading="lazy"' : ""}>`).join("")}${M.slides.length > 1 ? `<img src="${esc(M.slides[0].image)}" alt="" aria-hidden="true" data-open="item-${esc(M.slides[0].item)}" loading="lazy">` : ""}</div>
+        ${M.slides.length > 1 ? `<div class="dots" dir="rtl">${M.slides.map((_, i) => `<button type="button" data-slide="${i}" aria-label="${i + 1}"><span></span></button>`).join("")}</div>` : ""}
         <div class="topbar"><button data-open="lang" aria-label="${t.lang}">${svg(I.globe, 28, 1.5)}</button></div>
         <div class="logo"><img src="assets/logo.webp" alt="Kaza Restaurant"></div>
       </div>
@@ -140,20 +140,27 @@
 
   // ----- صور الغلاف: بتتبدّل لحالها، والزبون بيقدر يسحب أو يكبس على النقاط -----
   let slideIdx = 0, slideTimer, slideHold = 0;
-  const AUTO_MS = 1500, PAUSE_MS = 5000; // بعد ما الزبون يلمس الصور بتوقف 5 ثواني قبل ما ترجع تتحرك
+  const AUTO_MS = 2000, PAUSE_MS = 5000; // بعد ما الزبون يلمس الصور بتوقف 5 ثواني قبل ما ترجع تتحرك
   function initSlides() {
     clearInterval(slideTimer);
-    const box = document.getElementById("slides"), n = box?.children.length;
-    if (!n) return;
+    // الصور مرتبة من اليمين لليسار، وآخرها نسخة من الأولى عشان اللفة تكمل بنفس الاتجاه بدل ما ترجع لورا
+    const box = document.getElementById("slides"), n = M.slides.length;
+    if (!box || !n) return;
+    let settle;
     const dots = [...document.querySelectorAll("[data-slide]")];
     const show = i => dots.forEach((d, k) => d.classList.toggle("on", k === i));
-    const goTo = (i, smooth = true) => box.scrollTo({ left: ((i + n) % n) * box.clientWidth, behavior: smooth ? "smooth" : "instant" });
-    box.addEventListener("scroll", () => { slideIdx = Math.round(box.scrollLeft / box.clientWidth); show(slideIdx); }, { passive: true });
+    const at = () => Math.round(Math.abs(box.scrollLeft) / box.clientWidth); // بالاتجاه العربي scrollLeft بيكون سالب
+    const goTo = (i, smooth = true) => box.scrollTo({ left: -i * box.clientWidth, behavior: smooth ? "smooth" : "instant" });
+    box.addEventListener("scroll", () => {
+      slideIdx = at() % n; show(slideIdx);
+      clearTimeout(settle); // لما توقف على النسخة الأخيرة، بنرجع للأولى الحقيقية بدون حركة (نفس الصورة فما بتنلاحظ)
+      settle = setTimeout(() => { if (at() >= n) goTo(0, false); }, 150);
+    }, { passive: true });
     ["pointerdown", "touchstart", "wheel"].forEach(ev => box.addEventListener(ev, () => { slideHold = Date.now(); }, { passive: true }));
     dots.forEach((d, k) => d.addEventListener("click", () => { slideHold = Date.now(); goTo(k); }));
     goTo(slideIdx, false); show(slideIdx);
     if (n > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches)
-      slideTimer = setInterval(() => { if (!document.hidden && Date.now() - slideHold > PAUSE_MS) goTo(slideIdx + 1); }, AUTO_MS);
+      slideTimer = setInterval(() => { if (!document.hidden && Date.now() - slideHold > PAUSE_MS) goTo(at() + 1); }, AUTO_MS);
   }
 
   // ----- النوافذ: اللغة / الأقسام / تفاصيل الصنف (مربوطة بالـ hash عشان زر الرجوع) -----
